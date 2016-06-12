@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.jrspencer00.imtoosoberforthissht.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Height"
+        android:id="@+id/heightTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/heightFeet"
+        android:gravity="center_horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/heightTitle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ft"
+        android:id="@+id/ft"
+        android:layout_below="@+id/heightTitle"
+        android:layout_toRightOf="@+id/heightFeet"
+        android:layout_toEndOf="@+id/heightFeet"
+        android:layout_alignBottom="@+id/heightFeet"
+        android:gravity="center_vertical" />
+
+    <EditText
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/heightInches"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/heightTitle"
+        android:layout_toRightOf="@+id/ft"
+        android:layout_toEndOf="@+id/ft" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="in"
+        android:id="@+id/in"
+        android:gravity="center_vertical"
+        android:layout_below="@id/heightTitle"
+        android:layout_toRightOf="@+id/heightInches"
+        android:layout_toEndOf="@+id/heightInches"
+        android:layout_alignBottom="@id/heightInches"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Weight"
+        android:id="@+id/weightTitle"
+        android:paddingLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/in"
+        android:layout_alignStart="@+id/in"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="lbs"
+        android:id="@+id/lbs"
+        android:gravity="center_vertical"
+        android:layout_alignBaseline="@+id/weight"
+        android:layout_alignBottom="@+id/weight"
+        android:layout_toRightOf="@+id/weightTitle"
+        android:layout_toEndOf="@+id/weightTitle"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"/>
+
+    <EditText
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/weight"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/weightTitle"
+        android:layout_toLeftOf="@+id/lbs"
+        android:layout_toStartOf="@+id/lbs"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:entries="@array/drunk_scale"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Height in Inches"
+        android:id="@+id/sum"
+        android:layout_alignBaseline="@+id/calculate"
+        android:layout_alignBottom="@+id/calculate"
+        android:layout_toRightOf="@+id/calculate"
+        android:layout_toEndOf="@+id/calculate" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate"
+        android:id="@+id/calculate"
+        android:layout_marginTop="17dp"
+        android:clickable="false"
+        android:layout_below="@+id/spinner"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gender"
+        android:id="@+id/selectGender"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/lbs"
+        android:layout_toEndOf="@+id/lbs"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selectGender"
+        android:layout_alignLeft="@+id/selectGender"
+        android:layout_alignStart="@+id/selectGender"
+        android:id="@+id/radioGroup"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:id="@+id/genderMale"
+            android:checked="false"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:id="@+id/genderFemale"
+            android:checked="false"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Drinks Needed"
+        android:id="@+id/drinksNeeded"
+        android:layout_below="@+id/sum"
+        android:layout_alignLeft="@+id/sum"
+        android:layout_alignStart="@+id/sum"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+</RelativeLayout>
