@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     double drinksNeeded = (BAC / 100) * weightInGrams * genderConstant;
                     displayDrinksNeeded.setText(Double.toString(drinksNeeded));
                 } else {
-                    Toast.makeText(MainActivity.this, "Please Filling the Content", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Please Fill in the Content", Toast.LENGTH_LONG).show();
                 }
             }
         });
