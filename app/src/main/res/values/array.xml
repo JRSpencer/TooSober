@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="drunk_scale">
+        <item>1 - Sober</item>
+        <item>2 - Social</item>
+        <item>3 - Buzzed</item>
+        <item>4 - Tipsy</item>
+        <item>5 - Drunk</item>
+        <item>6 - Wasted</item>
+        <item>7 - White Girl Wasted</item>
+        <item>8 - Blackout</item>
+    </string-array>
+</resources>
