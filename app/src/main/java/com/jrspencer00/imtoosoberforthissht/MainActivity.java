@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView displayDrinksNeeded;
     private Button calculate;
     private RadioButton genderMale;
-    private RadioButton genderFemale;
+    private Spinner drunkLevel;
+    double[] BAC = {0.03,
+            0.06,
+            0.10,
+            0.15,
+            0.20,
+            0.25,
+            0.3};
 
 
     @Override
@@ -44,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         userInputWeight = (EditText) findViewById(R.id.weight);
         outputHeight = (TextView) findViewById(R.id.sum);
         calculate = (Button) findViewById(R.id.calculate);
-        genderFemale = (RadioButton) findViewById(R.id.genderFemale);
         genderMale = (RadioButton) findViewById(R.id.genderMale);
         displayDrinksNeeded = (TextView) findViewById(R.id.drinksNeeded);
+        drunkLevel = (Spinner) findViewById(R.id.drunkLevel);
 
 
 
@@ -56,17 +64,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (userInputFeet.getText().length() > 0 && userInputInches.getText().length() > 0 && userInputWeight.getText().length() > 0) {
                     double genderConstant;
-                    String drunkLevel;
+                    long drunkLevelValue = drunkLevel.getSelectedItemId();
 
-                    double BAC = 0.186;
-                    Toast.makeText(MainActivity.this, "BAC is " + BAC, Toast.LENGTH_LONG).show();
+
+                    double desiredBAC = BAC[(int) drunkLevelValue];
+//                    Toast.makeText(MainActivity.this, "Desired BAC is " + desiredBAC, Toast.LENGTH_LONG).show();
                     int totalHeightInches = (12 * Integer.parseInt(userInputFeet.getText().toString())) + Integer.parseInt(userInputInches.getText().toString());
                     outputHeight.setText(Integer.toString(totalHeightInches));
                     int userWeight = Integer.parseInt(userInputWeight.getText().toString());
 
-                    Toast.makeText(MainActivity.this, "weight is " + userWeight, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.this, "weight is " + userWeight, Toast.LENGTH_LONG).show();
                     double weightInGrams = userWeight * 453.592;
-                    Toast.makeText(MainActivity.this, "weight in grams is " + weightInGrams, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.this, "weight in grams is " + weightInGrams, Toast.LENGTH_LONG).show();
                     outputHeight.setText(Double.toString(weightInGrams));
 
                     if (genderMale.isChecked()) {
@@ -74,9 +83,11 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         genderConstant = 0.55;
                     }
-                    Toast.makeText(MainActivity.this, "gender Constant is " + genderConstant, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.this, "gender Constant is " + genderConstant, Toast.LENGTH_LONG).show();
 
-                    double drinksNeeded = (BAC / 100) * weightInGrams * genderConstant;
+                    double drinksNeeded = (desiredBAC / 100) * weightInGrams * genderConstant;
+                    drinksNeeded = Math.round(drinksNeeded * 100 / 14);
+                    drinksNeeded /= 100;
                     displayDrinksNeeded.setText(Double.toString(drinksNeeded));
                 } else {
                     Toast.makeText(MainActivity.this, "Please Fill in the Content", Toast.LENGTH_LONG).show();
