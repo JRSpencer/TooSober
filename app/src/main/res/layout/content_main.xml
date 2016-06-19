@@ -26,7 +26,7 @@
         android:gravity="center_horizontal" />
 
     <EditText
-        android:layout_width="20dp"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
@@ -49,7 +49,7 @@
         android:gravity="center_vertical" />
 
     <EditText
-        android:layout_width="30dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
@@ -115,17 +115,19 @@
         android:spinnerMode="dropdown"
         android:layout_below="@+id/radioGroup"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/calculate"
+        android:layout_toStartOf="@+id/calculate"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Height in Inches"
-        android:id="@+id/sum"
-        android:layout_alignBaseline="@+id/calculate"
-        android:layout_alignBottom="@+id/calculate"
-        android:layout_toRightOf="@+id/calculate"
-        android:layout_toEndOf="@+id/calculate" />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Height in Inches"-->
+    <!--android:id="@+id/sum"-->
+    <!--android:layout_alignBaseline="@+id/calculate"-->
+    <!--android:layout_alignBottom="@+id/calculate"-->
+    <!--android:layout_toRightOf="@+id/calculate"-->
+    <!--android:layout_toEndOf="@+id/calculate" />-->
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -133,9 +135,9 @@
         android:layout_height="wrap_content"
         android:text="Calculate"
         android:id="@+id/calculate"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="36dp"
         android:clickable="false"
-        android:layout_below="@+id/drunkLevel"
+        android:layout_below="@+id/drinksDisplay"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -174,24 +176,50 @@
             android:checked="false"/>
     </RadioGroup>
 
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+    <!--android:text="Drinks Needed"-->
+    <!--android:id="@+id/drinksNeeded"-->
+    <!--android:layout_below="@+id/sum"-->
+    <!--android:layout_alignLeft="@+id/sum"-->
+    <!--android:layout_alignStart="@+id/sum"/>-->
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/drinkSize"
+        android:layout_below="@+id/radioGroup"
+        android:layout_toRightOf="@+id/drunkLevel"
+        android:layout_toEndOf="@+id/drunkLevel"
+        android:gravity="center_horizontal"
+        android:hint="mL Per Drink"/>
+
+    <EditText
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/percentAlcohol"
+        android:gravity="center_horizontal"
+        android:hint="% Alcohol"
+        android:layout_alignTop="@+id/drinkSize"
+        android:layout_toRightOf="@+id/drinkSize"
+        android:layout_toEndOf="@+id/drinkSize"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Drinks Needed"
-        android:id="@+id/drinksNeeded"
-        android:layout_below="@+id/sum"
-        android:layout_alignLeft="@+id/sum"
-        android:layout_alignStart="@+id/sum"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Drinks Needed Displayed Here"
+        android:id="@+id/drinksDisplay"
+        android:gravity="center_horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/percentAlcohol"
+        android:layout_alignEnd="@+id/percentAlcohol"
+        android:paddingTop="50dp"
+        android:layout_below="@+id/drunkLevel"/>
 
 </RelativeLayout>

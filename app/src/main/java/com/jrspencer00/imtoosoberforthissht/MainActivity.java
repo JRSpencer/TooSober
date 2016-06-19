@@ -23,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     private Button calculate;
     private RadioButton genderMale;
     private Spinner drunkLevel;
+    private EditText drinkSize;
+    private EditText percentageAlcohol;
+    private TextView largeDrinksDisplay;
+
     double[] BAC = {0.03,
             0.06,
             0.10,
@@ -50,11 +54,14 @@ public class MainActivity extends AppCompatActivity {
         userInputFeet = (EditText) findViewById(R.id.heightFeet);
         userInputInches = (EditText) findViewById(R.id.heightInches);
         userInputWeight = (EditText) findViewById(R.id.weight);
-        outputHeight = (TextView) findViewById(R.id.sum);
+//        outputHeight = (TextView) findViewById(R.id.sum);
         calculate = (Button) findViewById(R.id.calculate);
         genderMale = (RadioButton) findViewById(R.id.genderMale);
-        displayDrinksNeeded = (TextView) findViewById(R.id.drinksNeeded);
+//        displayDrinksNeeded = (TextView) findViewById(R.id.drinksNeeded);
         drunkLevel = (Spinner) findViewById(R.id.drunkLevel);
+        percentageAlcohol = (EditText) findViewById(R.id.percentAlcohol);
+        drinkSize = (EditText) findViewById(R.id.drinkSize);
+        largeDrinksDisplay = (TextView) findViewById(R.id.drinksDisplay);
 
 
 
@@ -70,13 +77,13 @@ public class MainActivity extends AppCompatActivity {
                     double desiredBAC = BAC[(int) drunkLevelValue];
 //                    Toast.makeText(MainActivity.this, "Desired BAC is " + desiredBAC, Toast.LENGTH_LONG).show();
                     int totalHeightInches = (12 * Integer.parseInt(userInputFeet.getText().toString())) + Integer.parseInt(userInputInches.getText().toString());
-                    outputHeight.setText(Integer.toString(totalHeightInches));
+//                    outputHeight.setText(Integer.toString(totalHeightInches));
                     int userWeight = Integer.parseInt(userInputWeight.getText().toString());
 
 //                    Toast.makeText(MainActivity.this, "weight is " + userWeight, Toast.LENGTH_LONG).show();
                     double weightInGrams = userWeight * 453.592;
 //                    Toast.makeText(MainActivity.this, "weight in grams is " + weightInGrams, Toast.LENGTH_LONG).show();
-                    outputHeight.setText(Double.toString(weightInGrams));
+//                    outputHeight.setText(Double.toString(weightInGrams));
 
                     if (genderMale.isChecked()) {
                         genderConstant = 0.68;
@@ -84,11 +91,16 @@ public class MainActivity extends AppCompatActivity {
                         genderConstant = 0.55;
                     }
 //                    Toast.makeText(MainActivity.this, "gender Constant is " + genderConstant, Toast.LENGTH_LONG).show();
-
+//                    double mlConversion = 29.5735;
+                    int drinkSizeValue = Integer.parseInt(drinkSize.getText().toString());
+                    double alcoholContent = Double.parseDouble(percentageAlcohol.getText().toString());
                     double drinksNeeded = (desiredBAC / 100) * weightInGrams * genderConstant;
-                    drinksNeeded = Math.round(drinksNeeded * 100 / 14);
+                    double alcoholInGrams = drinkSizeValue * (alcoholContent / 100) * 0.789;
+                    Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
+                    drinksNeeded = Math.round(drinksNeeded * 100 / alcoholInGrams);
                     drinksNeeded /= 100;
-                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
+//                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
+                    largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                 } else {
                     Toast.makeText(MainActivity.this, "Please Fill in the Content", Toast.LENGTH_LONG).show();
                 }

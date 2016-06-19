@@ -8,6 +8,6 @@
         <item>5 - Drunk</item>
         <item>6 - Wasted</item>
         <item>7 - White Girl Wasted</item>
-        <item>8 - Blackout</item>
+        <!--<item>8 - Blackout</item>-->
     </string-array>
 </resources>
