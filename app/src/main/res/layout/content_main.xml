@@ -135,10 +135,10 @@
         android:layout_height="wrap_content"
         android:text="Calculate"
         android:id="@+id/calculate"
-        android:layout_marginTop="36dp"
         android:clickable="false"
-        android:layout_below="@+id/drinksDisplay"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="65dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -209,17 +209,100 @@
         android:layout_toEndOf="@+id/drinkSize"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Drinks Needed Displayed Here"
         android:id="@+id/drinksDisplay"
         android:gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/timeRemaining"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/leavingHour"
+        android:hint="Hour"
+        android:layout_below="@+id/leavingPrompt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/percentAlcohol"
-        android:layout_alignEnd="@+id/percentAlcohol"
-        android:paddingTop="50dp"
-        android:layout_below="@+id/drunkLevel"/>
+        android:layout_alignRight="@+id/heightTitle"
+        android:layout_alignEnd="@+id/heightTitle"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="When do you want to leave?"
+        android:id="@+id/leavingPrompt"
+        android:layout_below="@+id/drunkLevel"
+        android:layout_alignRight="@+id/calculate"
+        android:layout_alignEnd="@+id/calculate"
+        android:layout_marginTop="29dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=":"
+        android:id="@+id/colon"
+        android:password="false"
+        android:paddingTop="5dp"
+        android:layout_below="@+id/leavingPrompt"
+        android:layout_alignLeft="@+id/leavingMinute"
+        android:layout_alignStart="@+id/leavingMinute" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/leavingMinute"
+        android:gravity="center_horizontal"
+        android:hint="Minute"
+        android:layout_below="@+id/leavingPrompt"
+        android:layout_toRightOf="@+id/leavingHour"
+        android:layout_toEndOf="@+id/leavingHour" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup2"
+        android:layout_below="@+id/leavingPrompt"
+        android:layout_toRightOf="@+id/leavingMinute"
+        android:layout_toEndOf="@+id/leavingMinute">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AM"
+            android:id="@+id/amTime"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PM"
+            android:id="@+id/pmTime"
+            android:checked="false" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Time Until You Leave"
+        android:id="@+id/timeRemaining"
+        android:layout_below="@id/radioGroup2"
+        android:paddingTop="20dp"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

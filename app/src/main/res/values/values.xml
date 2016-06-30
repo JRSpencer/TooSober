@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="design_textinput_error_color_light">#774736</color>
+    <color name="material_deep_teal_500">#02cf27</color>
+</resources>

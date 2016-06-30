@@ -1,5 +1,6 @@
 package com.jrspencer00.imtoosoberforthissht;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +12,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +26,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView displayDrinksNeeded;
     private Button calculate;
     private RadioButton genderMale;
+    private RadioButton genderFemale;
     private Spinner drunkLevel;
     private EditText drinkSize;
     private EditText percentageAlcohol;
     private TextView largeDrinksDisplay;
+    private EditText selectedHour;
+    private EditText selectedMinute;
+    private TextView timeUntilDeparture;
+
+    private RadioButton timeAM;
+    private RadioButton timePM;
 
     double[] BAC = {0.03,
             0.06,
@@ -57,19 +68,26 @@ public class MainActivity extends AppCompatActivity {
 //        outputHeight = (TextView) findViewById(R.id.sum);
         calculate = (Button) findViewById(R.id.calculate);
         genderMale = (RadioButton) findViewById(R.id.genderMale);
+        genderFemale = (RadioButton) findViewById(R.id.genderFemale);
 //        displayDrinksNeeded = (TextView) findViewById(R.id.drinksNeeded);
         drunkLevel = (Spinner) findViewById(R.id.drunkLevel);
         percentageAlcohol = (EditText) findViewById(R.id.percentAlcohol);
         drinkSize = (EditText) findViewById(R.id.drinkSize);
         largeDrinksDisplay = (TextView) findViewById(R.id.drinksDisplay);
+        selectedHour = (EditText) findViewById(R.id.leavingHour);
+        selectedMinute = (EditText) findViewById(R.id.leavingMinute);
+        timeUntilDeparture = (TextView) findViewById(R.id.timeRemaining);
+        timeAM = (RadioButton) findViewById(R.id.amTime);
+        timePM = (RadioButton) findViewById(R.id.pmTime);
 
 
-
-
-        calculate.setOnClickListener(new View.OnClickListener() {
+               calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userInputFeet.getText().length() > 0 && userInputInches.getText().length() > 0 && userInputWeight.getText().length() > 0) {
+                if (userInputFeet.getText().length() > 0 && userInputInches.getText().length() > 0 &&
+                        userInputWeight.getText().length() > 0 && (genderFemale.isChecked() || genderMale.isChecked()) &&
+                        selectedHour.getText().length() > 0 && selectedMinute.getText().length() > 0 &&
+                        (timeAM.isChecked() || timePM.isChecked())) {
                     double genderConstant;
                     long drunkLevelValue = drunkLevel.getSelectedItemId();
 
@@ -87,8 +105,11 @@ public class MainActivity extends AppCompatActivity {
 
                     if (genderMale.isChecked()) {
                         genderConstant = 0.68;
-                    } else {
+                    } else if (genderFemale.isChecked()) {
                         genderConstant = 0.55;
+                    } else{
+                        Toast.makeText(MainActivity.this, "Please select a gender", Toast.LENGTH_LONG).show();
+                        genderConstant = 0;
                     }
 //                    Toast.makeText(MainActivity.this, "gender Constant is " + genderConstant, Toast.LENGTH_LONG).show();
 //                    double mlConversion = 29.5735;
@@ -101,6 +122,33 @@ public class MainActivity extends AppCompatActivity {
                     drinksNeeded /= 100;
 //                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
                     largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
+                    int hour = Integer.parseInt(selectedHour.getText().toString());
+                    if(Integer.parseInt(selectedHour.getText().toString()) > 0 &&
+                            Integer.parseInt(selectedHour.getText().toString()) < 13 ){
+                        if(Integer.parseInt(selectedMinute.getText().toString()) >= 0 &&
+                                Integer.parseInt(selectedMinute.getText().toString()) < 60 ){
+                            Calendar cal = Calendar.getInstance();
+                            if(timePM.isChecked()){
+                                hour += 12;
+                            }
+                            int hourDifference;
+                            if(hour < cal.get(Calendar.HOUR_OF_DAY) && timeAM.isChecked()){
+                                hourDifference = hour - cal.get(Calendar.HOUR_OF_DAY) + 24;
+                            }else if (hour < cal.get(Calendar.HOUR_OF_DAY) && timePM.isChecked()){
+                                hourDifference = hour  - cal.get(Calendar.HOUR_OF_DAY);
+                            }else{
+                                hourDifference = hour  - cal.get(Calendar.HOUR_OF_DAY);
+                            }
+
+                            int minuteDifference = Integer.parseInt(selectedMinute.getText().toString()) - cal.get(Calendar.MINUTE);
+                            timeUntilDeparture.setText(Integer.toString(hourDifference * 60 + minuteDifference) + " Minutes until you want to leave.");
+                        }else{
+                            Toast.makeText(MainActivity.this, "INVALID MINUTES", Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+                        Toast.makeText(MainActivity.this, "INVALID HOUR", Toast.LENGTH_LONG).show();
+                    }
+
                 } else {
                     Toast.makeText(MainActivity.this, "Please Fill in the Content", Toast.LENGTH_LONG).show();
                 }
