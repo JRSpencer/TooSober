@@ -132,10 +132,8 @@ public class MainActivity extends AppCompatActivity {
                                 hour += 12;
                             }
                             int hourDifference;
-                            if(hour < cal.get(Calendar.HOUR_OF_DAY) && timeAM.isChecked()){
+                            if (hour < cal.get(Calendar.HOUR_OF_DAY)) {
                                 hourDifference = hour - cal.get(Calendar.HOUR_OF_DAY) + 24;
-                            }else if (hour < cal.get(Calendar.HOUR_OF_DAY) && timePM.isChecked()){
-                                hourDifference = hour  - cal.get(Calendar.HOUR_OF_DAY);
                             }else{
                                 hourDifference = hour  - cal.get(Calendar.HOUR_OF_DAY);
                             }
