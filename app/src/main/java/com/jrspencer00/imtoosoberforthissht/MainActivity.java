@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         if(Integer.parseInt(selectedMinute.getText().toString()) >= 0 &&
                                 Integer.parseInt(selectedMinute.getText().toString()) < 60 ){
                             Calendar cal = Calendar.getInstance();
-                            if(timePM.isChecked()){
+                            if (timePM.isChecked() && hour < 12) {
                                 hour += 12;
                             }
                             int hourDifference;
@@ -139,7 +139,11 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             int minuteDifference = Integer.parseInt(selectedMinute.getText().toString()) - cal.get(Calendar.MINUTE);
-                            timeUntilDeparture.setText(Integer.toString(hourDifference * 60 + minuteDifference) + " Minutes until you want to leave.");
+                            int minutesUntilDeparture = hourDifference * 60 + minuteDifference;
+                            timeUntilDeparture.setText(Integer.toString(minutesUntilDeparture) + " Minutes until you want to leave.");
+                            double minutesPerDrink = Math.round(minutesUntilDeparture * 100 / drinksNeeded);
+                            minutesPerDrink /= 100;
+                            timeUntilDeparture.setText("You need to have a drink every " + Double.toString(minutesPerDrink) + " minutes");
                         }else{
                             Toast.makeText(MainActivity.this, "INVALID MINUTES", Toast.LENGTH_LONG).show();
                         }
