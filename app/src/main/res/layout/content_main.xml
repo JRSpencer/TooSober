@@ -136,6 +136,7 @@
         android:text="Calculate"
         android:id="@+id/calculate"
         android:clickable="false"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/drinksDisplay"
         android:layout_centerHorizontal="true" />
 
@@ -242,9 +243,9 @@
         android:text="When do you want to leave?"
         android:id="@+id/leavingPrompt"
         android:layout_below="@+id/drunkLevel"
-        android:layout_alignRight="@+id/calculate"
-        android:layout_alignEnd="@+id/calculate"
-        android:layout_marginTop="29dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="67dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -299,9 +300,44 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Time Until You Leave"
         android:id="@+id/timeRemaining"
-        android:layout_below="@id/radioGroup2"
         android:paddingTop="20dp"
+        android:layout_below="@+id/radioGroup2"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add drink"
+        android:id="@+id/addDrink"
+        android:layout_below="@+id/drunkLevel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/currentBAC"
+        android:layout_alignTop="@+id/addDrink"
+        android:layout_toRightOf="@+id/addDrink"
+        android:layout_toEndOf="@+id/addDrink"
+        android:layout_alignBottom="@+id/addDrink"
+        android:hint="Current BAC"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/desiredBAC"
+        android:hint="Desired BAC"
+        android:gravity="center_vertical"
+        android:layout_alignBottom="@+id/currentBAC"
+        android:layout_toRightOf="@+id/currentBAC"
+        android:layout_toEndOf="@+id/currentBAC"
+        android:layout_alignTop="@+id/currentBAC"
+        android:paddingLeft="20dp" />
 
 
 </RelativeLayout>

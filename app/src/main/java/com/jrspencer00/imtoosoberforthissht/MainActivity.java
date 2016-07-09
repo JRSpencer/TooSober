@@ -19,24 +19,30 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView outputHeight;
+    private TextView displayDrinksNeeded;
+    private TextView largeDrinksDisplay;
+    private TextView timeUntilDeparture;
+    private TextView currentBAC;
+    private TextView desiredBAC;
+
     private EditText userInputFeet;
     private EditText userInputInches;
     private EditText userInputWeight;
-    private TextView outputHeight;
-    private TextView displayDrinksNeeded;
-    private Button calculate;
-    private RadioButton genderMale;
-    private RadioButton genderFemale;
-    private Spinner drunkLevel;
     private EditText drinkSize;
     private EditText percentageAlcohol;
-    private TextView largeDrinksDisplay;
     private EditText selectedHour;
     private EditText selectedMinute;
-    private TextView timeUntilDeparture;
 
+    private Button calculate;
+    private Button addDrink;
+
+    private RadioButton genderMale;
+    private RadioButton genderFemale;
     private RadioButton timeAM;
     private RadioButton timePM;
+
+    private Spinner drunkLevel;
 
     double[] BAC = {0.03,
             0.06,
@@ -45,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             0.20,
             0.25,
             0.3};
+
+    double alcoholInGrams;
 
 
     @Override
@@ -65,18 +73,23 @@ public class MainActivity extends AppCompatActivity {
         userInputFeet = (EditText) findViewById(R.id.heightFeet);
         userInputInches = (EditText) findViewById(R.id.heightInches);
         userInputWeight = (EditText) findViewById(R.id.weight);
-//        outputHeight = (TextView) findViewById(R.id.sum);
-        calculate = (Button) findViewById(R.id.calculate);
-        genderMale = (RadioButton) findViewById(R.id.genderMale);
-        genderFemale = (RadioButton) findViewById(R.id.genderFemale);
-//        displayDrinksNeeded = (TextView) findViewById(R.id.drinksNeeded);
-        drunkLevel = (Spinner) findViewById(R.id.drunkLevel);
-        percentageAlcohol = (EditText) findViewById(R.id.percentAlcohol);
-        drinkSize = (EditText) findViewById(R.id.drinkSize);
-        largeDrinksDisplay = (TextView) findViewById(R.id.drinksDisplay);
         selectedHour = (EditText) findViewById(R.id.leavingHour);
         selectedMinute = (EditText) findViewById(R.id.leavingMinute);
+        drinkSize = (EditText) findViewById(R.id.drinkSize);
+        percentageAlcohol = (EditText) findViewById(R.id.percentAlcohol);
+
+        calculate = (Button) findViewById(R.id.calculate);
+        addDrink = (Button) findViewById(R.id.addDrink);
+
+        drunkLevel = (Spinner) findViewById(R.id.drunkLevel);
+
+        largeDrinksDisplay = (TextView) findViewById(R.id.drinksDisplay);
         timeUntilDeparture = (TextView) findViewById(R.id.timeRemaining);
+        currentBAC = (TextView) findViewById(R.id.currentBAC);
+        desiredBAC = (TextView) findViewById(R.id.desiredBAC);
+
+        genderMale = (RadioButton) findViewById(R.id.genderMale);
+        genderFemale = (RadioButton) findViewById(R.id.genderFemale);
         timeAM = (RadioButton) findViewById(R.id.amTime);
         timePM = (RadioButton) findViewById(R.id.pmTime);
 
@@ -90,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
                         (timeAM.isChecked() || timePM.isChecked())) {
                     double genderConstant;
                     long drunkLevelValue = drunkLevel.getSelectedItemId();
-
-
                     double desiredBAC = BAC[(int) drunkLevelValue];
 //                    Toast.makeText(MainActivity.this, "Desired BAC is " + desiredBAC, Toast.LENGTH_LONG).show();
                     int totalHeightInches = (12 * Integer.parseInt(userInputFeet.getText().toString())) + Integer.parseInt(userInputInches.getText().toString());
@@ -100,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
 //                    Toast.makeText(MainActivity.this, "weight is " + userWeight, Toast.LENGTH_LONG).show();
                     double weightInGrams = userWeight * 453.592;
-//                    Toast.makeText(MainActivity.this, "weight in grams is " + weightInGrams, Toast.LENGTH_LONG).show();
-//                    outputHeight.setText(Double.toString(weightInGrams));
 
                     if (genderMale.isChecked()) {
                         genderConstant = 0.68;
@@ -111,15 +120,15 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Please select a gender", Toast.LENGTH_LONG).show();
                         genderConstant = 0;
                     }
-//                    Toast.makeText(MainActivity.this, "gender Constant is " + genderConstant, Toast.LENGTH_LONG).show();
-//                    double mlConversion = 29.5735;
+
                     int drinkSizeValue = Integer.parseInt(drinkSize.getText().toString());
                     double alcoholContent = Double.parseDouble(percentageAlcohol.getText().toString());
                     double drinksNeeded = (desiredBAC / 100) * weightInGrams * genderConstant;
-                    double alcoholInGrams = drinkSizeValue * (alcoholContent / 100) * 0.789;
+                    alcoholInGrams = calculateAlcoholInGrams(drinkSizeValue, alcoholContent);   //drinkSizeValue * (alcoholContent / 100) * 0.789;
                     Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
-                    drinksNeeded = Math.round(drinksNeeded * 100 / alcoholInGrams);
-                    drinksNeeded /= 100;
+//                    drinksNeeded = Math.round(drinksNeeded * 100 / alcoholInGrams);
+//                    drinksNeeded /= 100;
+                    drinksNeeded = round(drinksNeeded / alcoholInGrams);
 //                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
                     largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                     int hour = Integer.parseInt(selectedHour.getText().toString());
@@ -141,28 +150,35 @@ public class MainActivity extends AppCompatActivity {
                             int minuteDifference = Integer.parseInt(selectedMinute.getText().toString()) - cal.get(Calendar.MINUTE);
                             int minutesUntilDeparture = hourDifference * 60 + minuteDifference;
                             timeUntilDeparture.setText(Integer.toString(minutesUntilDeparture) + " Minutes until you want to leave.");
-                            double minutesPerDrink = Math.round(minutesUntilDeparture * 100 / drinksNeeded);
-                            minutesPerDrink /= 100;
+                            double minutesPerDrink = round(minutesUntilDeparture / drinksNeeded);
                             timeUntilDeparture.setText("You need to have a drink every " + Double.toString(minutesPerDrink) + " minutes");
                         }else{
                             Toast.makeText(MainActivity.this, "INVALID MINUTES", Toast.LENGTH_LONG).show();
                         }
-                    }else{
+                    } else {
                         Toast.makeText(MainActivity.this, "INVALID HOUR", Toast.LENGTH_LONG).show();
                     }
-
                 } else {
                     Toast.makeText(MainActivity.this, "Please Fill in the Content", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 
-
-//        int totalHeightInches = (12 * Integer.parseInt(userInputFeet.getText().toString())) + Integer.parseInt(userInputInches.getText().toString());
-//        outputHeight.setText(Integer.toString(totalHeightInches));
-//        int userWeight = Integer.parseInt(userInputWeight.getText().toString());
-//        Toast.makeText(MainActivity.this, "weight is " + userWeight, Toast.LENGTH_LONG).show();
-
+        addDrink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drinkSize.getText().length() > 0 && percentageAlcohol.getText().length() > 0) {
+                    int drinkSizeValue = Integer.parseInt(drinkSize.getText().toString());
+                    double alcoholContent = Double.parseDouble(percentageAlcohol.getText().toString());
+                    alcoholInGrams = calculateAlcoholInGrams(drinkSizeValue, alcoholContent);
+                    double drinksPerDrink = round(alcoholInGrams / 14);
+                    currentBAC.setText(Double.toString(drinksPerDrink));
+                } else {
+                    Toast.makeText(MainActivity.this, "Please fill out drink size", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -185,5 +201,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static double calculateAlcoholInGrams(int drinkSize, double percentAlcohol) {
+        double alcoholInGrams = drinkSize * (percentAlcohol / 100) * 0.789;
+        return alcoholInGrams;
+    }
+
+    public static double round(double Value) {
+        double roundedValue;
+        roundedValue = Math.round(Value * 100);
+        roundedValue /= 100;
+        return roundedValue;
     }
 }
