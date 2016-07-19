@@ -11,7 +11,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.jrspencer00.imtoosoberforthissht.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:nestedScrollingEnabled="true">
 
 
     <TextView
@@ -136,7 +137,6 @@
         android:text="Calculate"
         android:id="@+id/calculate"
         android:clickable="false"
-        android:layout_marginTop="30dp"
         android:layout_below="@+id/drinksDisplay"
         android:layout_centerHorizontal="true" />
 
@@ -229,12 +229,11 @@
         android:ems="10"
         android:id="@+id/leavingHour"
         android:hint="Hour"
+        android:gravity="center_horizontal"
         android:layout_below="@+id/leavingPrompt"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/heightTitle"
-        android:layout_alignEnd="@+id/heightTitle"
-        android:gravity="center_horizontal" />
+        android:layout_toLeftOf="@+id/colon"
+        android:layout_alignLeft="@+id/desiredBAC"
+        android:layout_alignStart="@+id/desiredBAC" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -242,10 +241,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="When do you want to leave?"
         android:id="@+id/leavingPrompt"
-        android:layout_below="@+id/drunkLevel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="67dp" />
+        android:layout_below="@+id/currentBAC"
+        android:layout_alignRight="@+id/percentAlcohol"
+        android:layout_alignEnd="@+id/percentAlcohol" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -268,16 +266,16 @@
         android:gravity="center_horizontal"
         android:hint="Minute"
         android:layout_below="@+id/leavingPrompt"
-        android:layout_toRightOf="@+id/leavingHour"
-        android:layout_toEndOf="@+id/leavingHour" />
+        android:layout_toLeftOf="@+id/radioGroup2"
+        android:layout_toStartOf="@+id/radioGroup2" />
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/radioGroup2"
         android:layout_below="@+id/leavingPrompt"
-        android:layout_toRightOf="@+id/leavingMinute"
-        android:layout_toEndOf="@+id/leavingMinute">
+        android:layout_alignRight="@+id/percentAlcohol"
+        android:layout_alignEnd="@+id/percentAlcohol">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -307,11 +305,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add drink"
+        android:text="+"
         android:id="@+id/addDrink"
         android:layout_below="@+id/drunkLevel"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/heightInches"
+        android:layout_toStartOf="@+id/heightInches" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -338,6 +338,18 @@
         android:layout_toEndOf="@+id/currentBAC"
         android:layout_alignTop="@+id/currentBAC"
         android:paddingLeft="20dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:id="@+id/substractDrink"
+        android:layout_below="@+id/addDrink"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/addDrink"
+        android:layout_alignEnd="@+id/addDrink" />
 
 
 </RelativeLayout>
