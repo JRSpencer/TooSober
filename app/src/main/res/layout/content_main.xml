@@ -117,8 +117,8 @@
         android:layout_below="@+id/radioGroup"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/calculate"
-        android:layout_toStartOf="@+id/calculate"/>
+        android:layout_toStartOf="@+id/leavingPrompt"
+        android:layout_toLeftOf="@+id/leavingPrompt" />
 
     <!--<TextView-->
     <!--android:layout_width="wrap_content"-->
@@ -130,15 +130,15 @@
     <!--android:layout_toRightOf="@+id/calculate"-->
     <!--android:layout_toEndOf="@+id/calculate" />-->
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calculate"
-        android:id="@+id/calculate"
-        android:clickable="false"
-        android:layout_below="@+id/drinksDisplay"
-        android:layout_centerHorizontal="true" />
+    <!--<Button-->
+    <!--style="?android:attr/buttonStyleSmall"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Calculate"-->
+    <!--android:id="@+id/calculate"-->
+    <!--android:clickable="false"-->
+    <!--android:layout_below="@+id/drinksDisplay"-->
+    <!--android:layout_centerHorizontal="true" />-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -190,11 +190,12 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/drinkSize"
-        android:layout_below="@+id/radioGroup"
-        android:layout_toRightOf="@+id/drunkLevel"
-        android:layout_toEndOf="@+id/drunkLevel"
         android:gravity="center_horizontal"
-        android:hint="mL Per Drink"/>
+        android:hint="mL Per Drink"
+        android:inputType="number"
+        android:layout_below="@+id/radioGroup"
+        android:layout_toLeftOf="@+id/percentAlcohol"
+        android:layout_toStartOf="@+id/percentAlcohol" />
 
     <EditText
         android:layout_width="100dp"
@@ -204,9 +205,9 @@
         android:id="@+id/percentAlcohol"
         android:gravity="center_horizontal"
         android:hint="% Alcohol"
-        android:layout_alignTop="@+id/drinkSize"
-        android:layout_toRightOf="@+id/drinkSize"
-        android:layout_toEndOf="@+id/drinkSize"/>
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignRight="@+id/drinksDisplay"
+        android:layout_alignEnd="@+id/drinksDisplay" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -223,17 +224,15 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:inputType="time"
+        android:inputType="number"
         android:ems="10"
         android:id="@+id/leavingHour"
         android:hint="Hour"
         android:gravity="center_horizontal"
         android:layout_below="@+id/leavingPrompt"
-        android:layout_toLeftOf="@+id/colon"
-        android:layout_alignLeft="@+id/desiredBAC"
-        android:layout_alignStart="@+id/desiredBAC" />
+        android:layout_toLeftOf="@+id/colon" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -243,7 +242,8 @@
         android:id="@+id/leavingPrompt"
         android:layout_below="@+id/currentBAC"
         android:layout_alignRight="@+id/percentAlcohol"
-        android:layout_alignEnd="@+id/percentAlcohol" />
+        android:layout_alignEnd="@+id/percentAlcohol"
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -318,26 +318,26 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/currentBAC"
-        android:layout_alignTop="@+id/addDrink"
-        android:layout_toRightOf="@+id/addDrink"
-        android:layout_toEndOf="@+id/addDrink"
-        android:layout_alignBottom="@+id/addDrink"
-        android:hint="Current BAC"
+        android:hint="Drinks had"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp" />
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:layout_alignTop="@+id/addDrink"
+        android:layout_toLeftOf="@+id/desiredBAC"
+        android:layout_toStartOf="@+id/desiredBAC" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/desiredBAC"
-        android:hint="Desired BAC"
+        android:hint="Drinks needed"
         android:gravity="center_vertical"
-        android:layout_alignBottom="@+id/currentBAC"
-        android:layout_toRightOf="@+id/currentBAC"
-        android:layout_toEndOf="@+id/currentBAC"
-        android:layout_alignTop="@+id/currentBAC"
-        android:paddingLeft="20dp" />
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:layout_above="@+id/leavingPrompt"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

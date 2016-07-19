@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText selectedHour;
     private EditText selectedMinute;
 
-    private Button calculate;
+    //    private Button calculate;
     private Button addDrink;
     private Button subtractDrink;
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         drinkSize = (EditText) findViewById(R.id.drinkSize);
         percentageAlcohol = (EditText) findViewById(R.id.percentAlcohol);
 
-        calculate = (Button) findViewById(R.id.calculate);
+//        calculate = (Button) findViewById(R.id.calculate);
         addDrink = (Button) findViewById(R.id.addDrink);
         subtractDrink = (Button) findViewById(R.id.substractDrink);
 
