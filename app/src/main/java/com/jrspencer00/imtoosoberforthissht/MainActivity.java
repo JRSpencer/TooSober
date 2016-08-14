@@ -1,10 +1,8 @@
 package com.jrspencer00.imtoosoberforthissht;
 
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -61,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     double alcoholInGrams = 0;
     int minutesUntilDeparture;
+    boolean firstTime = false;
 
 
     @Override
@@ -169,18 +167,26 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             if (userInputFeet.getText().length() > 0 && userInputInches.getText().length() > 0 &&
                     userInputWeight.getText().length() > 0 && (genderFemale.isChecked() || genderMale.isChecked()) &&
                     selectedHour.getText().length() > 0 && selectedMinute.getText().length() > 0 &&
                     (timeAM.isChecked() || timePM.isChecked())) {
 
+                Calendar cal = Calendar.getInstance();
+
+                if (firstTime == false) {
+                    int initialHour = cal.get(Calendar.HOUR_OF_DAY);
+                    int initialMinute = cal.get(Calendar.MINUTE);
+                    firstTime = true;
+                }
 
                 int hour = Integer.parseInt(selectedHour.getText().toString());
                 if (Integer.parseInt(selectedHour.getText().toString()) > 0 &&
                         Integer.parseInt(selectedHour.getText().toString()) < 13) {
                     if (Integer.parseInt(selectedMinute.getText().toString()) >= 0 &&
                             Integer.parseInt(selectedMinute.getText().toString()) < 60) {
-                        Calendar cal = Calendar.getInstance();
+
                         if (timePM.isChecked() && hour < 12) {
                             hour += 12;
                         } else if (timeAM.isChecked() && hour == 12) {
@@ -206,15 +212,14 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "INVALID HOUR", Toast.LENGTH_LONG).show();
                 }
 
+
                 long drunkLevelValue = drunkLevel.getSelectedItemId();
 
-                int totalHeightInches = (12 * Integer.parseInt(userInputFeet.getText().toString())) + Integer.parseInt(userInputInches.getText().toString());
+                //int totalHeightInches = (12 * Integer.parseInt(userInputFeet.getText().toString())) + Integer.parseInt(userInputInches.getText().toString());
                 int userWeight = Integer.parseInt(userInputWeight.getText().toString());
-                int drinkSizeValue = Integer.parseInt(drinkSize.getText().toString());
 
                 double genderConstant;
                 double desiredBAC = BAC[(int) drunkLevelValue];
-                double alcoholContent = Double.parseDouble(percentageAlcohol.getText().toString());
                 double weightInGrams = userWeight * 453.592;
 
                 if (genderMale.isChecked()) {
@@ -242,6 +247,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Please Fill in the Content", Toast.LENGTH_LONG).show();
             }
 
+        }
+        if (id == R.id.reset) {
+            firstTime = false;
         }
 
         return true;

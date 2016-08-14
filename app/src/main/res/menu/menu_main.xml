@@ -9,6 +9,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/reset"
+        android:orderInCategory="100"
+        android:title="@string/reset"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/instructions"
         android:orderInCategory="100"
         android:title="@string/instructions"
