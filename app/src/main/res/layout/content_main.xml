@@ -189,24 +189,29 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/drinkSize"
-        android:gravity="center_horizontal"
         android:hint="mL Per Drink"
         android:inputType="number"
         android:layout_alignBottom="@+id/addDrink"
-        android:layout_alignLeft="@+id/percentAlcohol"
-        android:layout_alignStart="@+id/percentAlcohol" />
+        android:layout_toRightOf="@+id/addDrink"
+        android:layout_toEndOf="@+id/addDrink"
+        android:gravity="center_horizontal"
+        android:background="@android:color/transparent"
+        android:paddingBottom="15dp" />
 
     <EditText
-        android:layout_width="90dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/percentAlcohol"
-        android:gravity="center_horizontal"
         android:hint="% Alcohol"
-        android:layout_alignTop="@+id/substractDrink"
-        android:layout_alignRight="@+id/drunkLevel"
-        android:layout_alignEnd="@+id/drunkLevel" />
+        android:layout_alignBottom="@+id/substractDrink"
+        android:layout_toRightOf="@+id/substractDrink"
+        android:gravity="center_horizontal"
+        android:layout_alignRight="@+id/weightTitle"
+        android:layout_alignEnd="@+id/weightTitle"
+        android:background="@android:color/transparent"
+        android:paddingBottom="15dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -319,13 +324,13 @@
         android:hint="Drinks had"
         android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="150dp"
-        android:layout_alignTop="@+id/drinkSize"
-        android:layout_alignBottom="@+id/drinkSize"
         android:inputType="numberDecimal"
-        android:numeric="decimal" />
+        android:numeric="decimal"
+        android:layout_alignBottom="@+id/addDrink"
+        android:layout_toRightOf="@+id/weight"
+        android:layout_alignRight="@+id/desiredBAC"
+        android:layout_alignEnd="@+id/desiredBAC"
+        android:paddingBottom="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -335,13 +340,12 @@
         android:hint="Drinks needed"
         android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:layout_below="@+id/drinkSize"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="150dp"
         android:inputType="numberDecimal"
-        android:editable="false" />
+        android:editable="false"
+        android:layout_alignBottom="@+id/substractDrink"
+        android:layout_toRightOf="@+id/percentAlcohol"
+        android:layout_toEndOf="@+id/percentAlcohol"
+        android:paddingBottom="15dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
