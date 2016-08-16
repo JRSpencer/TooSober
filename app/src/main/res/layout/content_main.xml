@@ -27,7 +27,7 @@
         android:gravity="center_horizontal" />
 
     <EditText
-        android:layout_width="30dp"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
@@ -98,7 +98,7 @@
         android:layout_marginStart="8dp"/>
 
     <EditText
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
@@ -115,10 +115,9 @@
         android:entries="@array/drunk_scale"
         android:spinnerMode="dropdown"
         android:layout_below="@+id/radioGroup"
+        android:layout_toLeftOf="@+id/leavingPrompt"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/drinkSize"
-        android:layout_toLeftOf="@+id/drinkSize"/>
+        android:layout_alignParentStart="true" />
 
     <!--<TextView-->
     <!--android:layout_width="wrap_content"-->
@@ -193,21 +192,21 @@
         android:gravity="center_horizontal"
         android:hint="mL Per Drink"
         android:inputType="number"
-        android:layout_below="@+id/radioGroup"
-        android:layout_toLeftOf="@+id/percentAlcohol"
-        android:layout_toStartOf="@+id/percentAlcohol" />
+        android:layout_alignBottom="@+id/addDrink"
+        android:layout_alignLeft="@+id/percentAlcohol"
+        android:layout_alignStart="@+id/percentAlcohol" />
 
     <EditText
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/percentAlcohol"
         android:gravity="center_horizontal"
         android:hint="% Alcohol"
-        android:layout_below="@+id/radioGroup"
-        android:layout_alignRight="@+id/drinksDisplay"
-        android:layout_alignEnd="@+id/drinksDisplay" />
+        android:layout_alignTop="@+id/substractDrink"
+        android:layout_alignRight="@+id/drunkLevel"
+        android:layout_alignEnd="@+id/drunkLevel" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -216,12 +215,10 @@
         android:text="Drinks Needed Displayed Here"
         android:id="@+id/drinksDisplay"
         android:gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/timeRemaining"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginBottom="76dp" />
 
     <EditText
         android:layout_width="50dp"
@@ -240,10 +237,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="When do you want to leave?"
         android:id="@+id/leavingPrompt"
-        android:layout_below="@+id/currentBAC"
-        android:layout_alignRight="@+id/percentAlcohol"
-        android:layout_alignEnd="@+id/percentAlcohol"
-        android:layout_marginTop="15dp" />
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignRight="@+id/drinksDisplay"
+        android:layout_alignEnd="@+id/drinksDisplay" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -258,7 +254,7 @@
         android:layout_alignStart="@+id/leavingMinute" />
 
     <EditText
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
@@ -274,8 +270,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/radioGroup2"
         android:layout_below="@+id/leavingPrompt"
-        android:layout_alignRight="@+id/percentAlcohol"
-        android:layout_alignEnd="@+id/percentAlcohol">
+        android:layout_alignParentRight="true">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -299,9 +294,10 @@
         android:text="Time Until You Leave"
         android:id="@+id/timeRemaining"
         android:paddingTop="20dp"
-        android:layout_below="@+id/radioGroup2"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/drinksDisplay"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"/>
+        android:layout_marginBottom="45dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -312,7 +308,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/heightInches"
-        android:layout_toStartOf="@+id/heightInches" />
+        android:layout_toStartOf="@+id/heightInches"
+        android:layout_marginTop="60dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -320,12 +317,15 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/currentBAC"
         android:hint="Drinks had"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
-        android:layout_alignTop="@+id/addDrink"
-        android:layout_toLeftOf="@+id/desiredBAC"
-        android:layout_toStartOf="@+id/desiredBAC" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="150dp"
+        android:layout_alignTop="@+id/drinkSize"
+        android:layout_alignBottom="@+id/drinkSize"
+        android:inputType="numberDecimal"
+        android:numeric="decimal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -333,12 +333,15 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/desiredBAC"
         android:hint="Drinks needed"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
-        android:layout_above="@+id/leavingPrompt"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/drinkSize"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="150dp"
+        android:inputType="numberDecimal"
+        android:editable="false" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
