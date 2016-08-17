@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     double alcoholInGrams = 0;
     int minutesUntilDeparture;
     boolean firstTime = false;
+    int initialHour;
+    int initialMinute;
 
 
     @Override
@@ -176,8 +178,8 @@ public class MainActivity extends AppCompatActivity {
                 Calendar cal = Calendar.getInstance();
 
                 if (firstTime == false) {
-                    int initialHour = cal.get(Calendar.HOUR_OF_DAY);
-                    int initialMinute = cal.get(Calendar.MINUTE);
+                    initialHour = cal.get(Calendar.HOUR_OF_DAY);
+                    initialMinute = cal.get(Calendar.MINUTE);
                     firstTime = true;
                 }
 
@@ -194,12 +196,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                         int hourDifference;
                         if (hour < cal.get(Calendar.HOUR_OF_DAY)) {
-                            hourDifference = hour - cal.get(Calendar.HOUR_OF_DAY) + 24;
+                            hourDifference = hour - initialHour + 24;
                         } else {
-                            hourDifference = hour - cal.get(Calendar.HOUR_OF_DAY);
+                            hourDifference = hour - initialHour;
                         }
 
-                        int minuteDifference = Integer.parseInt(selectedMinute.getText().toString()) - cal.get(Calendar.MINUTE);
+                        int minuteDifference = Integer.parseInt(selectedMinute.getText().toString()) - initialMinute;
                         minutesUntilDeparture = hourDifference * 60 + minuteDifference;
 //                            System.out.println(minutesUntilDeparture);
                         timeUntilDeparture.setText(Integer.toString(minutesUntilDeparture) + " Minutes until you want to leave.");
