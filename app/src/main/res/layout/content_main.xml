@@ -213,17 +213,6 @@
         android:background="@android:color/transparent"
         android:paddingBottom="15dp" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Drinks Needed Displayed Here"
-        android:id="@+id/drinksDisplay"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="76dp" />
 
     <EditText
         android:layout_width="50dp"
@@ -298,11 +287,22 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Time Until You Leave"
         android:id="@+id/timeRemaining"
-        android:paddingTop="20dp"
+        android:paddingTop="40dp"
         android:gravity="center_horizontal"
-        android:layout_above="@+id/drinksDisplay"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp" />
+        android:layout_below="@id/percentAlcohol"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/drinksDisplay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/timeRemaining"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:text="Drinks Needed Displayed Here"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <Button
         android:layout_width="wrap_content"

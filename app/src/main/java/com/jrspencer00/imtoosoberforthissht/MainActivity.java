@@ -235,9 +235,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
 
                 double hoursUntilDeparture = minutesUntilDeparture / 60;
-                double drinksNeeded = (desiredBAC / 100) * weightInGrams * genderConstant;
+                double drinksNeeded = ((desiredBAC + (0.015 * hoursUntilDeparture)) / 100) * weightInGrams * genderConstant;
 //                    alcoholInGrams = 14; //Set to standard drinks, can be changed to cope with drink size but would be unreliable.
-                drinksNeeded = round((drinksNeeded / 14) + 0.015 * hoursUntilDeparture);
+                drinksNeeded = round((drinksNeeded / 14));
 //                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
                 largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                 BACGoal.setText(Double.toString(drinksNeeded));
