@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     drinkPercentArray.remove(drinkPercentArray.size() - 1);
                     double drinksPerDrink = round(alcoholInGrams / 14);
                     currentBAC.setText(Double.toString(drinksPerDrink));
+                    drinksLeft.setText(Double.toString(round(drinksNeeded - drinksPerDrink)));
 
                 } else {
                     Toast.makeText(MainActivity.this, "No drinks to remove", Toast.LENGTH_LONG).show();
