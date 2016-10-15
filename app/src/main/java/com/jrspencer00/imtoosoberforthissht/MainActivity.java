@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView timeUntilDeparture;
     private TextView currentBAC;
     private TextView BACGoal;
+    private TextView drinksLeft;
 
     private EditText userInputFeet;
     private EditText userInputInches;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     boolean firstTime = false;
     int initialHour;
     int initialMinute;
+    double drinksNeeded;
 
 
     @Override
@@ -92,10 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
         drunkLevel = (Spinner) findViewById(R.id.drunkLevel);
 
-        largeDrinksDisplay = (TextView) findViewById(R.id.drinksDisplay);
-        timeUntilDeparture = (TextView) findViewById(R.id.timeRemaining);
+//        largeDrinksDisplay = (TextView) findViewById(R.id.drinksDisplay);
+//        timeUntilDeparture = (TextView) findViewById(R.id.timeRemaining);
         currentBAC = (TextView) findViewById(R.id.currentBAC);
         BACGoal = (TextView) findViewById(R.id.desiredBAC);
+        drinksLeft = (TextView) findViewById(R.id.drinksLeft);
 
         genderMale = (RadioButton) findViewById(R.id.genderMale);
         genderFemale = (RadioButton) findViewById(R.id.genderFemale);
@@ -125,10 +128,11 @@ public class MainActivity extends AppCompatActivity {
                             drinkPercentArray.get(drinkPercentArray.size() - 1));
                     double drinksPerDrink = round(alcoholInGrams / 14);
                     currentBAC.setText(Double.toString(drinksPerDrink));
+                    drinksLeft.setText(Double.toString(round(drinksNeeded - drinksPerDrink)));
 //                    }
 
                 } else {
-                    Toast.makeText(MainActivity.this, "Please fill out drink size", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Please fill out drink size then click + to add a drink", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -204,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                         int minuteDifference = Integer.parseInt(selectedMinute.getText().toString()) - initialMinute;
                         minutesUntilDeparture = hourDifference * 60 + minuteDifference;
 //                            System.out.println(minutesUntilDeparture);
-                        timeUntilDeparture.setText(Integer.toString(minutesUntilDeparture) + " Minutes until you want to leave.");
+//                        timeUntilDeparture.setText(Integer.toString(minutesUntilDeparture) + " Minutes until you want to leave.");
                         //double minutesPerDrink = round(minutesUntilDeparture / drinksNeeded);
                         //timeUntilDeparture.setText("You need to have a drink every " + Double.toString(minutesPerDrink) + " minutes");
                     } else {
@@ -237,11 +241,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
 
                 double hoursUntilDeparture = minutesUntilDeparture / 60;
-                double drinksNeeded = ((desiredBAC + (0.015 * hoursUntilDeparture)) / 100) * weightInGrams * genderConstant;
+                drinksNeeded = ((desiredBAC + (0.015 * hoursUntilDeparture)) / 100) * weightInGrams * genderConstant;
 //                    alcoholInGrams = 14; //Set to standard drinks, can be changed to cope with drink size but would be unreliable.
                 drinksNeeded = round((drinksNeeded / 14));
 //                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
-                largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
+//                largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                 BACGoal.setText(Double.toString(drinksNeeded));
 
 
