@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        calculate = (Button) findViewById(R.id.calculate);
         addDrink = (Button) findViewById(R.id.addDrink);
-        subtractDrink = (Button) findViewById(R.id.substractDrink);
+        subtractDrink = (Button) findViewById(R.id.subtractDrink);
 
         drunkLevel = (Spinner) findViewById(R.id.drunkLevel);
 
