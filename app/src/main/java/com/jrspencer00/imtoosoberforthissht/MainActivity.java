@@ -2,7 +2,6 @@ package com.jrspencer00.imtoosoberforthissht;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,9 +18,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    NotificationCompat.Builder mBuilder =
-            (NotificationCompat.Builder) new NotificationCompat.Builder(this);
 
     private TextView outputHeight;
     private TextView displayDrinksNeeded;
@@ -311,13 +307,5 @@ public class MainActivity extends AppCompatActivity {
         roundedValue = Math.round(Value * 100);
         roundedValue /= 100;
         return roundedValue;
-    }
-
-    public static int getHoursRemaining(int hours, int minutes) {
-        int timeRemaining = 0;
-
-        timeRemaining = hours + minutes / 60;
-
-        return timeRemaining;
     }
 }
