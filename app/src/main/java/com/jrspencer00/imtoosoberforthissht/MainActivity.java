@@ -2,6 +2,7 @@ package com.jrspencer00.imtoosoberforthissht;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,9 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    NotificationCompat.Builder mBuilder =
+            (NotificationCompat.Builder) new NotificationCompat.Builder(this);
 
     private TextView outputHeight;
     private TextView displayDrinksNeeded;
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton timePM;
 
     private Spinner drunkLevel;
+    private Spinner volumeSizes;
 
     double[] BAC = {0.03,
             0.06,
@@ -54,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             0.25,
             0.3};
 
-    List<Integer> drinkSizeArray = new ArrayList<Integer>();
+    List<Double> drinkSizeArray = new ArrayList<Double>();
     List<Double> drinkPercentArray = new ArrayList<Double>();
 
     double alcoholInGrams = 0;
@@ -93,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         subtractDrink = (Button) findViewById(R.id.subtractDrink);
 
         drunkLevel = (Spinner) findViewById(R.id.drunkLevel);
+        volumeSizes = (Spinner) findViewById(R.id.volumeSizes);
 
 //        largeDrinksDisplay = (TextView) findViewById(R.id.drinksDisplay);
 //        timeUntilDeparture = (TextView) findViewById(R.id.timeRemaining);
@@ -116,8 +122,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (drinkSize.getText().length() > 0 && percentageAlcohol.getText().length() > 0) {
-                    drinkSizeArray.add(Integer.parseInt(drinkSize.getText().toString()));
-                    drinkPercentArray.add(Double.parseDouble(percentageAlcohol.getText().toString()));
+                    if(volumeSizes.getSelectedItemId() == 1){
+                        double oz2ml = 29.5735;
+                        double ozDrinkSize = (Double.parseDouble(drinkSize.getText().toString()) * oz2ml);
+                        double ozDrinkPercent = Double.parseDouble(percentageAlcohol.getText().toString());
+
+                        drinkSizeArray.add(ozDrinkSize);
+                        drinkPercentArray.add(ozDrinkPercent);
+                    }else{
+                        drinkSizeArray.add(Double.parseDouble(drinkSize.getText().toString()));
+                        drinkPercentArray.add(Double.parseDouble(percentageAlcohol.getText().toString()));
+                    }
                     //int drinkSizeValue = Integer.parseInt(drinkSize.getText().toString());
                     //double alcoholContent = Double.parseDouble(percentageAlcohol.getText().toString());
                     //alcoholInGrams = calculateAlcoholInGrams(drinkSizeValue, alcoholContent);
@@ -163,6 +178,18 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -249,6 +276,17 @@ public class MainActivity extends AppCompatActivity {
 //                largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                 BACGoal.setText(Double.toString(drinksNeeded));
 
+                double drinksPerTimeUnit = minutesUntilDeparture / drinksNeeded;
+
+//                if(minutesUntilDeparture % drinksPerTimeUnit == 0){
+//
+//                }
+                //
+                //If time until departure % average time per drink == 0
+                //set notification
+
+                //Set notification method should see if you are ahead, behind or on pace and notify you appropriately
+
 
             } else {
                 Toast.makeText(MainActivity.this, "Please Fill in the Content", Toast.LENGTH_LONG).show();
@@ -263,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
 //        return super.onOptionsItemSelected(item);
     }
 
-    public static double calculateAlcoholInGrams(int drinkSize, double percentAlcohol) {
+    public static double calculateAlcoholInGrams(double drinkSize, double percentAlcohol) {
         double alcoholInGrams = drinkSize * (percentAlcohol / 100) * 0.789;
         return alcoholInGrams;
     }

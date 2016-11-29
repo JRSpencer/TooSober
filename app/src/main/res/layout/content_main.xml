@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:fillViewport="true"-->
+    <!--android:layout_gravity="center">-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.jrspencer00.imtoosoberforthissht.MainActivity"
     tools:showIn="@layout/activity_main"
@@ -190,7 +196,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/drinkSize"
         android:hint="mL Per Drink"
-        android:inputType="number"
+        android:inputType="number|numberDecimal"
         android:gravity="center_horizontal"
         android:paddingBottom="15dp"
         android:layout_above="@+id/subtractDrink"
@@ -423,12 +429,12 @@
         android:layout_alignRight="@+id/radioGroup2"
         android:layout_alignEnd="@+id/radioGroup2"/>
 
-    <TextView
+    <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="mL"
-        android:id="@+id/mL"
+        android:entries="@array/volumeSizes"
+        android:spinnerMode="dropdown"
+        android:id="@+id/volumeSizes"
         android:layout_alignBottom="@+id/drinkSize"
         android:layout_toRightOf="@+id/drinkSize"
         android:layout_toEndOf="@+id/drinkSize"
@@ -449,3 +455,4 @@
 
 
 </RelativeLayout>
+<!--</ScrollView>-->
