@@ -429,18 +429,6 @@
         android:layout_alignRight="@+id/radioGroup2"
         android:layout_alignEnd="@+id/radioGroup2"/>
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/volumeSizes"
-        android:spinnerMode="dropdown"
-        android:id="@+id/volumeSizes"
-        android:layout_alignBottom="@+id/drinkSize"
-        android:layout_toRightOf="@+id/drinkSize"
-        android:layout_toEndOf="@+id/drinkSize"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -452,6 +440,17 @@
         android:layout_toEndOf="@+id/drinkSize"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/volumeSizes"
+        android:spinnerMode="dropdown"
+        android:id="@+id/volumeSizes"
+        android:layout_alignBaseline="@+id/drinkSize"
+        android:layout_alignBottom="@+id/drinkSize"
+        android:layout_toRightOf="@+id/drinkSize"
+        android:layout_toEndOf="@+id/drinkSize"/>
 
 
 </RelativeLayout>
