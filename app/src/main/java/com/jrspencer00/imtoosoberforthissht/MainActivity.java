@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 //                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
 //                largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                 BACGoal.setText(Double.toString(drinksNeeded));
-
+                drinksLeft.setText(Double.toString(drinksNeeded - round(alcoholInGrams/14)));
                 double drinksPerTimeUnit = minutesUntilDeparture / drinksNeeded;
 
 //                if(minutesUntilDeparture % drinksPerTimeUnit == 0){

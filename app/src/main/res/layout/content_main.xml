@@ -362,9 +362,9 @@
         android:inputType="numberDecimal"
         android:editable="false"
         android:layout_marginBottom="0dp"
-        android:layout_below="@id/drinksNeededHeader"
         android:layout_alignRight="@+id/drinksNeededHeader"
-        android:layout_alignEnd="@+id/drinksNeededHeader"/>
+        android:layout_alignEnd="@+id/drinksNeededHeader"
+        android:layout_below="@+id/drinksHadHeader"/>
 
     <TextView
         android:layout_width="wrap_content"
