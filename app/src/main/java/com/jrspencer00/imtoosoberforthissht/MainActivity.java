@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Calendar cal = Calendar.getInstance();
 
-                if (firstTime == false) {
+                if (!firstTime) {
                     initialHour = cal.get(Calendar.HOUR_OF_DAY);
                     initialMinute = cal.get(Calendar.MINUTE);
                     firstTime = true;
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 //                    alcoholInGrams = calculateAlcoholInGrams(drinkSizeValue, alcoholContent);   //drinkSizeValue * (alcoholContent / 100) * 0.789;
-                Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
 
                 double hoursUntilDeparture = minutesUntilDeparture / 60;
                 drinksNeeded = ((desiredBAC + (0.015 * hoursUntilDeparture)) / 100) * weightInGrams * genderConstant;
