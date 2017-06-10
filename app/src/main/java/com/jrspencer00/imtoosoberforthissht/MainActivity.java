@@ -1,7 +1,10 @@
 package com.jrspencer00.imtoosoberforthissht;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +21,12 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    NotificationCompat.Builder mBuilder =
+            (NotificationCompat.Builder) new NotificationCompat.Builder(this);
+
+    private AlarmManager alarmMgr;
+    private PendingIntent pendingIntent;
 
     private TextView outputHeight;
     private TextView displayDrinksNeeded;
@@ -135,6 +144,13 @@ public class MainActivity extends AppCompatActivity {
                     currentBAC.setText(Double.toString(drinksPerDrink));
                     drinksLeft.setText(Double.toString(round(drinksNeeded - drinksPerDrink)));
 //                    }
+                    if(true){
+                        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                        mBuilder.setContentTitle("Drink More");
+                        mBuilder.setContentText("You are falling behind");
+                    }
+
+
 
                 } else {
                     Toast.makeText(MainActivity.this, "Please fill out drink size then click + to add a drink", Toast.LENGTH_LONG).show();
@@ -197,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Calendar cal = Calendar.getInstance();
 
-                if (!firstTime) {
+                if (firstTime == false) {
                     initialHour = cal.get(Calendar.HOUR_OF_DAY);
                     initialMinute = cal.get(Calendar.MINUTE);
                     firstTime = true;
@@ -256,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
 //                    alcoholInGrams = calculateAlcoholInGrams(drinkSizeValue, alcoholContent);   //drinkSizeValue * (alcoholContent / 100) * 0.789;
                 //Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
 
-                double hoursUntilDeparture = minutesUntilDeparture / 60;
+                double hoursUntilDeparture = (double)(minutesUntilDeparture) / 60;
                 drinksNeeded = ((desiredBAC + (0.015 * hoursUntilDeparture)) / 100) * weightInGrams * genderConstant;
 //                    alcoholInGrams = 14; //Set to standard drinks, can be changed to cope with drink size but would be unreliable.
                 drinksNeeded = round((drinksNeeded / 14));
