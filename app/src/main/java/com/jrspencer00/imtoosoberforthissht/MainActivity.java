@@ -108,12 +108,6 @@ public class MainActivity extends AppCompatActivity {
         timePM = (RadioButton) findViewById(R.id.pmTime);
 
 
-//        calculate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//        });
-
         addDrink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,8 +146,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (drinkSize.getText().length() > 0 && percentageAlcohol.getText().length() > 0 && drinkSizeArray.size() > 0) {
-//                    drinkSizeArray.add(Integer.parseInt(drinkSize.getText().toString()));
-//                    drinkPercentArray.add(Double.parseDouble(percentageAlcohol.getText().toString()));
                     alcoholInGrams = alcoholInGrams - calculateAlcoholInGrams(drinkSizeArray.get(drinkSizeArray.size() - 1),
                             drinkPercentArray.get(drinkPercentArray.size() - 1));
                     drinkSizeArray.remove(drinkSizeArray.size() - 1);
