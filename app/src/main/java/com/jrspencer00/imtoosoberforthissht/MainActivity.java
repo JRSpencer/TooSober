@@ -188,8 +188,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-
+        if (id == R.id.action_settings)
             if (userInputFeet.getText().length() > 0 && userInputInches.getText().length() > 0 &&
                     userInputWeight.getText().length() > 0 && (genderFemale.isChecked() || genderMale.isChecked()) &&
                     selectedHour.getText().length() > 0 && selectedMinute.getText().length() > 0 &&
@@ -256,14 +255,14 @@ public class MainActivity extends AppCompatActivity {
 //                    alcoholInGrams = calculateAlcoholInGrams(drinkSizeValue, alcoholContent);   //drinkSizeValue * (alcoholContent / 100) * 0.789;
                 //Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
 
-                double hoursUntilDeparture = minutesUntilDeparture / 60;
+                double hoursUntilDeparture = (double) (minutesUntilDeparture) / 60;
                 drinksNeeded = ((desiredBAC + (0.015 * hoursUntilDeparture)) / 100) * weightInGrams * genderConstant;
 //                    alcoholInGrams = 14; //Set to standard drinks, can be changed to cope with drink size but would be unreliable.
                 drinksNeeded = round((drinksNeeded / 14));
 //                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
 //                largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                 BACGoal.setText(Double.toString(drinksNeeded));
-                drinksLeft.setText(Double.toString(drinksNeeded - round(alcoholInGrams/14)));
+                drinksLeft.setText(Double.toString(drinksNeeded - round(alcoholInGrams / 14)));
                 double drinksPerTimeUnit = minutesUntilDeparture / drinksNeeded;
 
 //                if(minutesUntilDeparture % drinksPerTimeUnit == 0){
@@ -279,8 +278,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(MainActivity.this, "Please Fill in the Content", Toast.LENGTH_LONG).show();
             }
-
-        }
         if (id == R.id.reset) {
             firstTime = false;
         }
