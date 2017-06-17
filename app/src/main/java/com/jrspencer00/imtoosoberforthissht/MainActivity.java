@@ -1,6 +1,7 @@
 package com.jrspencer00.imtoosoberforthissht;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -69,10 +70,13 @@ public class MainActivity extends AppCompatActivity {
 
     double alcoholInGrams = 0;
     int minutesUntilDeparture;
+    int initialMinutesUntilDeparture;
     boolean firstTime = false;
     int initialHour;
     int initialMinute;
     double drinksNeeded;
+    double minutesPerDrink;
+    int timeRemaining;
 
 
     @Override
@@ -121,14 +125,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (drinkSize.getText().length() > 0 && percentageAlcohol.getText().length() > 0) {
-                    if(volumeSizes.getSelectedItemId() == 1){
+                    if (volumeSizes.getSelectedItemId() == 1) {
                         double oz2ml = 29.5735;
                         double ozDrinkSize = (Double.parseDouble(drinkSize.getText().toString()) * oz2ml);
                         double ozDrinkPercent = Double.parseDouble(percentageAlcohol.getText().toString());
 
                         drinkSizeArray.add(ozDrinkSize);
                         drinkPercentArray.add(ozDrinkPercent);
-                    }else{
+                    } else {
                         drinkSizeArray.add(Double.parseDouble(drinkSize.getText().toString()));
                         drinkPercentArray.add(Double.parseDouble(percentageAlcohol.getText().toString()));
                     }
@@ -144,13 +148,30 @@ public class MainActivity extends AppCompatActivity {
                     currentBAC.setText(Double.toString(drinksPerDrink));
                     drinksLeft.setText(Double.toString(round(drinksNeeded - drinksPerDrink)));
 //                    }
-                    if(true){
+                    Calendar cal = Calendar.getInstance();
+                    int currentHour = cal.get(Calendar.HOUR_OF_DAY);
+                    int currentMinute = cal.get(Calendar.MINUTE);
+                    timeRemaining = timeToDeparture(currentHour, currentMinute);
+//                    Toast.makeText(MainActivity.this, "Time remaining" + timeRemaining, Toast.LENGTH_LONG).show();
+                    double  drinksRemaining = Double.parseDouble(drinksLeft.getText().toString());
+//                    Toast.makeText(MainActivity.this, "Drinks remaining" + drinksRemaining, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.this, "Drinks per time unit" + minutesPerDrink, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.this, "Val " + (drinksRemaining * minutesPerDrink), Toast.LENGTH_LONG).show();
+                    if (timeRemaining < drinksRemaining * minutesPerDrink){
                         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
-                        mBuilder.setContentTitle("Drink More");
-                        mBuilder.setContentText("You are falling behind");
+                        mBuilder.setContentTitle("Drink Faster");
+                        mBuilder.setContentText("You are falling behind pace");
                     }
-
-
+                    else{
+                        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                        mBuilder.setContentTitle("Drink Slower");
+                        mBuilder.setContentText("You are drinking too fast");
+                    }
+                    // Gets an instance of the NotificationManager service
+                    NotificationManager mNotifyMgr =
+                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+// Builds the notification and issues it.
+                    mNotifyMgr.notify(101, mBuilder.build());
 
                 } else {
                     Toast.makeText(MainActivity.this, "Please fill out drink size then click + to add a drink", Toast.LENGTH_LONG).show();
@@ -238,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         int minuteDifference = Integer.parseInt(selectedMinute.getText().toString()) - initialMinute;
-                        minutesUntilDeparture = hourDifference * 60 + minuteDifference;
+                        initialMinutesUntilDeparture = hourDifference * 60 + minuteDifference;
 //                            System.out.println(minutesUntilDeparture);
 //                        timeUntilDeparture.setText(Integer.toString(minutesUntilDeparture) + " Minutes until you want to leave.");
                         //double minutesPerDrink = round(minutesUntilDeparture / drinksNeeded);
@@ -272,15 +293,15 @@ public class MainActivity extends AppCompatActivity {
 //                    alcoholInGrams = calculateAlcoholInGrams(drinkSizeValue, alcoholContent);   //drinkSizeValue * (alcoholContent / 100) * 0.789;
                 //Toast.makeText(MainActivity.this, "Alcohol in Gram is " + alcoholInGrams, Toast.LENGTH_LONG).show();
 
-                double hoursUntilDeparture = (double)(minutesUntilDeparture) / 60;
+                double hoursUntilDeparture = (double) (initialMinutesUntilDeparture) / 60;
                 drinksNeeded = ((desiredBAC + (0.015 * hoursUntilDeparture)) / 100) * weightInGrams * genderConstant;
 //                    alcoholInGrams = 14; //Set to standard drinks, can be changed to cope with drink size but would be unreliable.
                 drinksNeeded = round((drinksNeeded / 14));
 //                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
 //                largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                 BACGoal.setText(Double.toString(drinksNeeded));
-                drinksLeft.setText(Double.toString(drinksNeeded - round(alcoholInGrams/14)));
-                double drinksPerTimeUnit = minutesUntilDeparture / drinksNeeded;
+                drinksLeft.setText(Double.toString(drinksNeeded - round(alcoholInGrams / 14)));
+                minutesPerDrink = initialMinutesUntilDeparture / drinksNeeded;
 
 //                if(minutesUntilDeparture % drinksPerTimeUnit == 0){
 //
@@ -315,5 +336,33 @@ public class MainActivity extends AppCompatActivity {
         roundedValue = Math.round(Value * 100);
         roundedValue /= 100;
         return roundedValue;
+    }
+
+    public int timeToDeparture(int givenHour, int givenMinute) {
+        Calendar cal = Calendar.getInstance();
+
+        int hour = Integer.parseInt(selectedHour.getText().toString());
+        if (Integer.parseInt(selectedHour.getText().toString()) > 0 &&
+                Integer.parseInt(selectedHour.getText().toString()) < 13) {
+            if (Integer.parseInt(selectedMinute.getText().toString()) >= 0 &&
+                    Integer.parseInt(selectedMinute.getText().toString()) < 60) {
+
+                if (timePM.isChecked() && hour < 12) {
+                    hour += 12;
+                } else if (timeAM.isChecked() && hour == 12) {
+                    hour -= 12;
+                }
+                int hourDifference;
+                if (hour < cal.get(Calendar.HOUR_OF_DAY)) {
+                    hourDifference = hour - givenHour + 24;
+                } else {
+                    hourDifference = hour - givenHour;
+                }
+
+                int minuteDifference = Integer.parseInt(selectedMinute.getText().toString()) - givenMinute;
+                minutesUntilDeparture = hourDifference * 60 + minuteDifference;
+            }
+        }
+        return minutesUntilDeparture;
     }
 }
