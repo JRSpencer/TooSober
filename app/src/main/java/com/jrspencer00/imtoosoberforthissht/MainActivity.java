@@ -157,7 +157,12 @@ public class MainActivity extends AppCompatActivity {
 //                    Toast.makeText(MainActivity.this, "Drinks remaining" + drinksRemaining, Toast.LENGTH_LONG).show();
 //                    Toast.makeText(MainActivity.this, "Drinks per time unit" + minutesPerDrink, Toast.LENGTH_LONG).show();
 //                    Toast.makeText(MainActivity.this, "Val " + (drinksRemaining * minutesPerDrink), Toast.LENGTH_LONG).show();
-                    if (timeRemaining < drinksRemaining * minutesPerDrink){
+                    if(timeRemaining <= (drinksRemaining * minutesPerDrink) - 5 || timeRemaining >= (drinksRemaining * minutesPerDrink) + 5){
+                        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                        mBuilder.setContentTitle("On Pace");
+                        mBuilder.setContentText("Keep it up, you are on track");
+                    }
+                    else if(timeRemaining < drinksRemaining * minutesPerDrink){
                         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
                         mBuilder.setContentTitle("Drink Faster");
                         mBuilder.setContentText("You are falling behind pace");
@@ -300,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
 //                    displayDrinksNeeded.setText(Double.toString(drinksNeeded));
 //                largeDrinksDisplay.setText(Double.toString(drinksNeeded) + " drinks needed to reach desired level of drunkenness");
                 BACGoal.setText(Double.toString(drinksNeeded));
-                drinksLeft.setText(Double.toString(drinksNeeded - round(alcoholInGrams / 14)));
+                drinksLeft.setText(Double.toString(round(drinksNeeded - round(alcoholInGrams / 14))));
                 minutesPerDrink = initialMinutesUntilDeparture / drinksNeeded;
 
 //                if(minutesUntilDeparture % drinksPerTimeUnit == 0){
