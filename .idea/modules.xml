@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TooSober.iml" filepath="$PROJECT_DIR$/TooSober.iml" />
+      <module fileurl="file://C:\Users\James Spencer\AndroidStudioProjects\TooSober2\TooSober.iml" filepath="C:\Users\James Spencer\AndroidStudioProjects\TooSober2\TooSober.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TooSober2.iml" filepath="$PROJECT_DIR$/TooSober2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

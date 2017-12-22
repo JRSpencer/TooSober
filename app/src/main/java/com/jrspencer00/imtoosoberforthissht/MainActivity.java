@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -157,17 +158,30 @@ public class MainActivity extends AppCompatActivity {
 //                    Toast.makeText(MainActivity.this, "Drinks remaining" + drinksRemaining, Toast.LENGTH_LONG).show();
 //                    Toast.makeText(MainActivity.this, "Drinks per time unit" + minutesPerDrink, Toast.LENGTH_LONG).show();
 //                    Toast.makeText(MainActivity.this, "Val " + (drinksRemaining * minutesPerDrink), Toast.LENGTH_LONG).show();
-                    if(timeRemaining <= (drinksRemaining * minutesPerDrink) - 5 || timeRemaining >= (drinksRemaining * minutesPerDrink) + 5){
+                    double buffer = 10;
+                    if(timeRemaining <= (drinksRemaining * minutesPerDrink) + buffer && timeRemaining >= (drinksRemaining * minutesPerDrink) - buffer){
+                        Log.d("Testing", "Drinking Rate " + drinksRemaining * minutesPerDrink);
+                        Log.d("Testing", "Time Remaining " + timeRemaining);
+                        Log.d("Testing", "" + (timeRemaining <= (drinksRemaining * minutesPerDrink) + buffer));
+                        Log.d("Testing", "" + (timeRemaining >= (drinksRemaining * minutesPerDrink) - buffer));
                         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
                         mBuilder.setContentTitle("On Pace");
                         mBuilder.setContentText("Keep it up, you are on track");
                     }
                     else if(timeRemaining < drinksRemaining * minutesPerDrink){
+                        Log.d("Testing", "Drinking Rate " + drinksRemaining * minutesPerDrink);
+                        Log.d("Testing", "Time Remaining " + timeRemaining);
+                        Log.d("Testing", "" + (timeRemaining <= (drinksRemaining * minutesPerDrink) + buffer));
+                        Log.d("Testing", "" + (timeRemaining >= (drinksRemaining * minutesPerDrink) - buffer));
                         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
                         mBuilder.setContentTitle("Drink Faster");
                         mBuilder.setContentText("You are falling behind pace");
                     }
                     else{
+                        Log.d("Testing", "Drinking Rate " + drinksRemaining * minutesPerDrink);
+                        Log.d("Testing", "Time Remaining " + timeRemaining);
+                        Log.d("Testing", "" + (timeRemaining <= (drinksRemaining * minutesPerDrink) + buffer));
+                        Log.d("Testing", "" + (timeRemaining >= (drinksRemaining * minutesPerDrink) - buffer));
                         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
                         mBuilder.setContentTitle("Drink Slower");
                         mBuilder.setContentText("You are drinking too fast");
